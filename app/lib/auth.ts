@@ -8,7 +8,7 @@ export async function currentUser() {
 
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
-    include: { company: true }, // important
+    // include: { company: true }, // important
   });
 
   return user;
