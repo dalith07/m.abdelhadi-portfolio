@@ -14,7 +14,7 @@ const recursive = Recursive({
 });
 
 export const metadata: Metadata = {
-  title: "speed cars",
+  title: "M.abdelhadi",
   description: "Created With Nextjs",
   generator: "test",
   icons: [

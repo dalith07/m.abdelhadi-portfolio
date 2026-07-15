@@ -25,7 +25,6 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning>
             <body className={`${sourceCodePro.variable} antialiased`}>
                 <Providers>
-                    {/* <AnimatedBackground /> */}
                     <Header />
                     <main>
                         {children}
