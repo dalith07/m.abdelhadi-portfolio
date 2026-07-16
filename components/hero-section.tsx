@@ -1,86 +1,85 @@
 "use client"
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { AiFillTikTok } from "react-icons/ai";
-import { FiInstagram } from "react-icons/fi";
-import { Button } from './ui/button'
+import Image from "next/image"
+import { motion } from "framer-motion"
 
-
-const HeroSection = () => {
+export default function HeroSection() {
     return (
-        <section className="dark relative isolate min-h-screen w-full overflow-hidden bg-background flex items-center">
+        <section className="w-full min-h-screen bg-black px-6 mt-12 flex items-center">
+            <div className="max-w-6xl mx-auto w-full">
+                <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
-            <div className="absolute inset-0 -z-10">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-[120px] animate-pulse"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-500/5 rounded-full blur-[120px] animate-pulse [animation-delay:1s]"></div>
-            </div>
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="flex-1 text-center lg:text-left"
+                    >
+                        <div className="flex items-center justify-center lg:justify-start gap-3 mb-3">
+                            <span className="text-yellow-500 text-xs font-semibold tracking-[0.2em]">WELCOME</span>
+                            <span className="w-8 h-px bg-yellow-500/50" />
+                        </div>
 
-            <div className="container mx-auto px-6 sm:px-8 py-24 lg:py-20">
-                <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-8">
-
-                    <div className="flex flex-col items-center lg:items-start text-center lg:text-left flex-1">
-
-                        <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                            Mohammed Abdelhadi
+                        <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+                            Mohammed
+                        </h1>
+                        <h1 className="text-yellow-500 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+                            Abdelhadi
                         </h1>
 
-                        <p className="text-white/60 text-sm sm:text-base max-w-xs sm:max-w-md lg:max-w-lg mb-8 leading-relaxed">
-                            Building a life of intentionality through the fusion of Faith, Fitness, and consistent Professional Excellence.
+                        <p className="text-white/70 text-sm sm:text-base mb-3">
+                            Discipline • Faith • Fitness • Self-Improvement
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto mb-8">
-                            <Link href="/contact" className="w-full sm:w-auto">
-                                <Button >
-                                    WORK WITH ME
-                                    <ArrowRight size={14} />
-                                </Button>
-                            </Link>
-                            <Link href="/wisdom" className="w-full sm:w-auto">
-                                <Button variant="outline">
-                                    DAILY WISDOM
-                                </Button>
-                            </Link>
-                        </div>
+                        <p className="text-white/50 text-sm max-w-md mx-auto lg:mx-0 leading-relaxed">
+                            Helping people become stronger physically, mentally, and spiritually.
+                        </p>
+                    </motion.div>
 
-                        <div className='flex items-center justify-center gap-4'>
-                            <div >
-                                <Link href="https://www.linkedin.com/in/mohamed-ali-theiri-274540311" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-blue-500 transition-colors">
-                                    <AiFillTikTok size={20} />
-                                </Link>
-                            </div>
-
-                            <div >
-                                <Link href="https://www.linkedin.com/in/mohamed-ali-theiri-274540311" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-blue-500 transition-colors">
-                                    <FiInstagram size={20} />
-                                </Link>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-64 lg:h-64 shrink-0">
-                        <div className="w-full h-full rounded-full overflow-hidden ring-2 ring-yellow-500/60 p-1.5">
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 shrink-0"
+                    >
+                        <div className="w-full h-full rounded-full ring-2 ring-yellow-500/60 shadow-[0_0_60px_rgba(234,179,8,0.15)]">
                             <Image
-                                src="/M.abdelhadi.png"
+                                src="/m.abdelhadi.png"
                                 alt="Mohammed Abdelhadi"
-                                width={400}
-                                height={400}
+                                width={500}
+                                height={500}
                                 priority
-                                className="w-full h-full object-cover rounded-full"
+                                className="w-full pb-8 h-full scale-125 object-cover"
                             />
+                            <div className="absolute -bottom-4 left-0 right-0 h-16 sm:h-20 bg-linear-to-t from-black via-black/80 to-transparent" />
                         </div>
-                        <div className="absolute bottom-2 right-2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-yellow-500 flex items-center justify-center ring-2 ring-black">
-                            <span className="text-black text-sm animate-pulse">★</span>
+                    </motion.div>
+
+                    {/* <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 shrink-0"
+                    >
+                        <div className="relative w-full h-full">
+                            <div className="absolute inset-0 rounded-full ring-2 ring-yellow-500/60 shadow-[0_0_60px_rgba(234,179,8,0.15)] z-20 pointer-events-none" />
+
+                            <div className="absolute -inset-8 sm:-inset-10 lg:-inset-12 overflow-hidden">
+                                <Image
+                                    src="/m.abdelhadi.png"
+                                    alt="Mohammed Abdelhadi"
+                                    width={600}
+                                    height={600}
+                                    priority
+                                    className="w-full h-full sc125 object-contain"
+                                />
+                                <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-20 bg-linear-to-t from-black via-black/80 to-transparent" />
+                            </div>
                         </div>
-                    </div>
+                    </motion.div> */}
 
                 </div>
             </div>
-
-        </section >
+        </section>
     )
 }
-
-export default HeroSection

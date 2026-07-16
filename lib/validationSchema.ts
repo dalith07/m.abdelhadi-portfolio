@@ -2,16 +2,15 @@ import { z } from "zod";
 
 // Register Schema
 export const RegisterSchema = z.object({
-  email: z.string().email({ message: "Email is required" }),
-  password: z.string().min(8, { message: "Minimum 6 characters required" }),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 // Login Schema
 export const LoginSchema = z.object({
-  email: z.string().email({ message: "Email is required" }),
-  password: z.string().min(8, { message: "Password is required" }).max(60),
-  // code: z.optional(z.string()),
+  email: z.string().email("Invalid email"),
+  password: z.string().min(1, "Password is required"),
 });
 
 export const ProfileSchema = z.object({

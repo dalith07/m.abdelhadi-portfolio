@@ -9,8 +9,8 @@ datasource db {
 
 enum UserRole {
   USER
-  COMPANY_OWNER
   ADMIN
+  VIP_USER
 }
 
 enum UserStatus {
@@ -18,6 +18,12 @@ enum UserStatus {
   INACTIVE
   SUSPENDED
   BANNED
+}
+
+enum LogType {
+  INFO
+  WARN
+  ERROR
 }
 
 model User {
@@ -47,4 +53,12 @@ model Profile {
   updatedAt     DateTime @updatedAt
   userId        String   @unique
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Log {
+  id        String   @id @default(cuid())
+  type      LogType
+  message   String
+  details   Json?
+  createdAt DateTime @default(now())
 }

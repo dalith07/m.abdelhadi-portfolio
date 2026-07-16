@@ -64,11 +64,11 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import clsx from "clsx"
+import AuthMenu from "./auth-toggle"
 
 export default function Header() {
     const pathname = usePathname()
@@ -117,8 +117,10 @@ export default function Header() {
 
                 {/* Right cluster */}
                 <div className="flex items-center gap-4">
-                    {/* Avatar */}
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden ring-1 ring-primary/80 shrink-0">
+                    {/* Auth Toggle Button */}
+                    <AuthMenu />
+
+                    {/* <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden ring-1 ring-primary/80 shrink-0">
                         <Image
                             src="/logo_user.png"
                             alt="profile"
@@ -126,7 +128,7 @@ export default function Header() {
                             height={36}
                             className="object-cover w-full h-full hover:cursor-pointer"
                         />
-                    </div>
+                    </div> */}
 
                     {/* Hamburger - mobile only */}
                     <button
@@ -198,6 +200,6 @@ export default function Header() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </header>
+        </header >
     )
 }

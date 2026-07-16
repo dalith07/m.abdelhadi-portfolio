@@ -3,18 +3,22 @@
 import { prisma } from "@/lib/prisma";
 import { UserRole, UserStatus } from "@prisma/client";
 
-export const getUserByEmail = async (email: string) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { email },
-      // include: { company: true },
-    });
+// export const getUserByEmail = async (email: string) => {
+//   try {
+//     const user = await prisma.user.findUnique({
+//       where: { email },
+//       // include: { company: true },
+//     });
 
-    return user;
-  } catch {
-    return null;
-  }
-};
+//     return user;
+//   } catch {
+//     return null;
+//   }
+// };
+
+export async function getUserByEmail(email: string) {
+  return prisma.user.findUnique({ where: { email } });
+}
 
 export const getUserById = async (id: string) => {
   const user = await prisma.user.findUnique({
