@@ -10,7 +10,7 @@ export default function HeroSection() {
                 <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={false}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
                         className="flex-1 text-center lg:text-left"
@@ -37,7 +37,7 @@ export default function HeroSection() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={false}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
                         className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 shrink-0"

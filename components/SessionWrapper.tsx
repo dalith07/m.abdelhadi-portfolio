@@ -4,10 +4,9 @@ import { SessionProvider } from 'next-auth/react';
 import { ReactNode, } from 'react';
 import BannedGuard from './banned-guard';
 
-export default function Providers({ children }: { children: ReactNode }) {
-
+export default function SessionWrapper({ children }: { children: ReactNode }) {
     return (
-        <SessionProvider>
+        <SessionProvider refetchOnWindowFocus={false}>
             <BannedGuard>
                 {children}
             </BannedGuard>

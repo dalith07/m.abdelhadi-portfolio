@@ -1,11 +1,65 @@
+// import type React from "react"
+// import type { Metadata } from "next"
+// import { Recursive } from "next/font/google";
+// import "./globals.css"
+// import { Suspense } from "react"
+// import { Toaster } from "@/components/ui/sonner";
+// import SessionWrapper from "@/components/SessionWrapper";
+// import { LanguageProvider } from "./language-provider";
+// import Loading from "./loading";
+
+// const recursive = Recursive({
+//   subsets: ["latin"],
+//   weight: ["400", "500", "600", "700", "800"],
+// });
+
+// export const metadata: Metadata = {
+//   title: "M.abdelhadi",
+//   description: "Created With Nextjs",
+//   generator: "test",
+//   icons: [
+//     {
+//       url: "/cars/bmw_m5_competition_1.png",
+//     },]
+// };
+
+// export default function RootLayout({
+//   children,
+// }: {
+//   children: React.ReactNode
+// }) {
+//   return (
+
+//     <html lang="en" className={recursive.className} suppressHydrationWarning>
+//       <body>
+//         <SessionWrapper>
+//           <LanguageProvider>
+//             <main className="flex flex-col min-h-[calc(100vh-3.5rem-1px)]">
+//               <Suspense fallback={<Loading />}>
+//                 {children}
+//                 <Toaster position="bottom-right" richColors={true} />
+//               </Suspense>
+//             </main>
+//           </LanguageProvider>
+
+//         </SessionWrapper>
+//       </body>
+//     </html>
+
+//   )
+// }
+
+
+
 import type React from "react"
 import type { Metadata } from "next"
 import { Recursive } from "next/font/google";
-import "./globals.css"
 import { Suspense } from "react"
+import "./globals.css"
 import { Toaster } from "@/components/ui/sonner";
 import SessionWrapper from "@/components/SessionWrapper";
 import { LanguageProvider } from "./language-provider";
+import AppLoader from "@/components/app-loader";
 import Loading from "./loading";
 
 const recursive = Recursive({
@@ -16,11 +70,12 @@ const recursive = Recursive({
 export const metadata: Metadata = {
   title: "M.abdelhadi",
   description: "Created With Nextjs",
-  generator: "test",
-  icons: [
-    {
-      url: "/cars/bmw_m5_competition_1.png",
-    },]
+  generator: ".",
+  // icons: [
+  //   {
+  //     url: "/cars/bmw_m5_competition_1.png",
+  //   },
+  // ]
 };
 
 export default function RootLayout({
@@ -29,22 +84,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-
     <html lang="en" className={recursive.className} suppressHydrationWarning>
       <body>
         <SessionWrapper>
           <LanguageProvider>
-            <main className="flex flex-col min-h-[calc(100vh-3.5rem-1px)]">
-              <Suspense fallback={<Loading />}>
-                {children}
+            <AppLoader>
+              <main className="flex flex-col min-h-[calc(100vh-3.5rem-1px)]">
+                <Suspense fallback={<Loading />}>
+                  {children}
+                </Suspense>
                 <Toaster position="bottom-right" richColors={true} />
-              </Suspense>
-            </main>
+              </main>
+            </AppLoader>
           </LanguageProvider>
-
         </SessionWrapper>
       </body>
     </html>
-
   )
 }
