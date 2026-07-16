@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import { useRef, useState, useLayoutEffect } from "react"
@@ -102,18 +103,19 @@ export default function ValuesPage() {
                 </div>
 
                 <div className="relative">
-                    <button
+                    {/* <button
                         onClick={() => scrollByCard("left")}
                         className="absolute hover:cursor-pointer -left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black border border-white/10 text-white/60 hover:text-yellow-500 hover:border-yellow-500/40 flex items-center justify-center transition-colors"
                     >
                         <ChevronLeft size={18} />
-                    </button>
-                    <button
+                    </button> */}
+
+                    {/* <button
                         onClick={() => scrollByCard("right")}
                         className="absolute hover:cursor-pointer -right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black border border-white/10 text-white/60 hover:text-yellow-500 hover:border-yellow-500/40 flex items-center justify-center transition-colors"
                     >
                         <ChevronRight size={18} />
-                    </button>
+                    </button> */}
 
                     <div className="pointer-events-none absolute left-0 top-0 h-full w-10 bg-linear-to-r from-black to-transparent z-10" />
                     <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-linear-to-l from-black to-transparent z-10" />
@@ -127,11 +129,14 @@ export default function ValuesPage() {
                             {loopValues.map(({ icon: Icon, label }, i) => (
                                 <div
                                     key={`${label}-${i}`}
-                                    className="shrink-0 w-40 sm:w-47.5 bg-white/3 border border-white/10 rounded-2xl p-6 flex flex-col items-center gap-3 hover:border-yellow-500/30 hover:bg-white/5 transition-colors"
+                                    className="group shrink-0 w-40 mt-4 sm:w-47.5 hover:cursor-pointer bg-white/3 border border-white/10 rounded-2xl p-6 flex flex-col items-center gap-3 transition-all duration-300 hover:border-yellow-500/40 hover:bg-white/5 hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgba(234,179,8,0.15)]"
                                 >
-                                    <Icon size={22} className="text-yellow-500" />
-                                    <span className="text-white/80 text-sm text-center">{label}</span>
-                                    <span className="w-6 h-px bg-yellow-500/30" />
+                                    <Icon
+                                        size={22}
+                                        className="text-yellow-500 transition-transform duration-500 ease-out group-hover:scale-150 group-hover:drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]"
+                                    />
+                                    <span className="text-white/80 text-sm text-center transition-colors duration-300 group-hover:text-white">{label}</span>
+                                    <span className="w-6 h-px bg-yellow-500/30 transition-all duration-300 group-hover:w-10 group-hover:bg-yellow-500/60" />
                                 </div>
                             ))}
                         </div>

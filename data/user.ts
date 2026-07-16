@@ -3,19 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { UserRole, UserStatus } from "@prisma/client";
 
-// export const getUserByEmail = async (email: string) => {
-//   try {
-//     const user = await prisma.user.findUnique({
-//       where: { email },
-//       // include: { company: true },
-//     });
-
-//     return user;
-//   } catch {
-//     return null;
-//   }
-// };
-
 export async function getUserByEmail(email: string) {
   return prisma.user.findUnique({ where: { email } });
 }
@@ -25,7 +12,6 @@ export const getUserById = async (id: string) => {
     where: { id },
     include: {
       profile: true,
-      // company: true,
     },
   });
 
@@ -34,9 +20,7 @@ export const getUserById = async (id: string) => {
 
 export const getAllUsers = async () => {
   const users = await prisma.user.findMany({
-    include: {
-      // company: true,
-    },
+    include: {},
   });
   return users;
 };
