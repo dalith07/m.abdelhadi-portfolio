@@ -115,7 +115,7 @@ export default function AuthMenu() {
                 </span>
             )
         }
-        if (user?.role === "VIP") {
+        if (user?.role === 'VIP_USER') {
             return (
                 <span className="absolute -top-1 -right-1 text-fuchsia-400 z-10">
                     <Star size={13} className="animate-pulse drop-shadow-[0_0_4px_rgba(232,121,249,0.8)]" />
