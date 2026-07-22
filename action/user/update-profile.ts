@@ -1,42 +1,49 @@
+// action/user/update-profile.ts
 "use server";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { UpdateProfileSchema } from "@/lib/validationSchema";
-import type { UpdateProfileSchemaType } from "@/lib/validationSchema";
 
-export async function updateProfile(values: UpdateProfileSchemaType) {
+export async function updateProfile(values: {
+  name?: string;
+  phoneNumber?: string;
+  streetAddress?: string;
+  city?: string;
+  postalCode?: string;
+  image?: string;
+}) {
   const session = await auth();
-  if (!session?.user?.id) {
-    return { error: "Not authenticated" };
-  }
+  if (!session?.user?.id) return { error: "Not authenticated" };
 
-  const validatedFields = UpdateProfileSchema.safeParse(values);
-  if (!validatedFields.success) {
-    return { error: "Invalid fields!" };
-  }
-
-  const { name, phoneNumber, streetAddress, city, postalCode, image } =
-    validatedFields.data;
+  const userId = session.user.id;
 
   try {
     await prisma.user.update({
-      where: { id: session.user.id },
+      where: { id: userId },
       data: {
-        name,
-        ...(image ? { image } : {}),
+        name: values.name,
+        image: values.image,
         profile: {
           upsert: {
-            create: { phoneNumber, streetAddress, city, postalCode },
-            update: { phoneNumber, streetAddress, city, postalCode },
+            create: {
+              phoneNumber: values.phoneNumber,
+              streetAddress: values.streetAddress,
+              city: values.city,
+              postalCode: values.postalCode,
+            },
+            update: {
+              phoneNumber: values.phoneNumber,
+              streetAddress: values.streetAddress,
+              city: values.city,
+              postalCode: values.postalCode,
+            },
           },
         },
       },
     });
-
-    return { success: "Profile updated successfully!" };
-  } catch (error) {
-    console.error("Failed to update profile:", error);
-    return { error: "Something went wrong while saving your profile." };
+    return { success: "Profile updated" };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e) {
+    return { error: "Something went wrong" };
   }
 }
