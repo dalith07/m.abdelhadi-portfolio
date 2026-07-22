@@ -44,7 +44,7 @@ export default function HeroSection() {
                     >
                         <div className="w-full h-full rounded-full ring-2 ring-yellow-500/60 shadow-[0_0_60px_rgba(234,179,8,0.15)]">
                             <Image
-                                src="/m.abdelhadi.png"
+                                src="/M.abdelhadi.png"
                                 alt="Mohammed Abdelhadi"
                                 width={500}
                                 height={500}
@@ -54,30 +54,6 @@ export default function HeroSection() {
                             <div className="absolute -bottom-4 left-0 right-0 h-16 sm:h-20 bg-linear-to-t from-black via-black/80 to-transparent" />
                         </div>
                     </motion.div>
-
-                    {/* <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 shrink-0"
-                    >
-                        <div className="relative w-full h-full">
-                            <div className="absolute inset-0 rounded-full ring-2 ring-yellow-500/60 shadow-[0_0_60px_rgba(234,179,8,0.15)] z-20 pointer-events-none" />
-
-                            <div className="absolute -inset-8 sm:-inset-10 lg:-inset-12 overflow-hidden">
-                                <Image
-                                    src="/m.abdelhadi.png"
-                                    alt="Mohammed Abdelhadi"
-                                    width={600}
-                                    height={600}
-                                    priority
-                                    className="w-full h-full sc125 object-contain"
-                                />
-                                <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-20 bg-linear-to-t from-black via-black/80 to-transparent" />
-                            </div>
-                        </div>
-                    </motion.div> */}
-
                 </div>
             </div>
         </section>
