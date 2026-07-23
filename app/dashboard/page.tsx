@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { gsap } from "gsap"
 import Sidebar, { NavId } from "@/components/dashboard/sideBar"
@@ -24,6 +24,7 @@ const Page = () => {
     const searchParams = useSearchParams()
     const containerRef = useRef<HTMLDivElement>(null)
     const mainRef = useRef<HTMLDivElement>(null)
+    const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
     const tabFromUrl = searchParams.get("tab") as NavId | null
     const active: NavId = tabFromUrl && validTabs.includes(tabFromUrl) ? tabFromUrl : "analytics"
@@ -54,6 +55,15 @@ const Page = () => {
     // Content entrance — reruns every time the active section changes
     useEffect(() => {
         let ctx: gsap.Context | undefined
+        let safetyTimer: ReturnType<typeof setTimeout> | undefined
+
+        const revealContent = () => {
+            gsap.set("#eyebrow, #main-title, .stat-card, #chartcard, #distcard, #contentcard", {
+                opacity: 1,
+                y: 0,
+                clearProps: "transform",
+            })
+        }
 
         const raf = requestAnimationFrame(() => {
             ctx = gsap.context(() => {
@@ -89,10 +99,13 @@ const Page = () => {
                     c.addEventListener("mouseleave", () => gsap.to(c, { y: 0, duration: 0.2, borderColor: "rgb(51 65 85)" }))
                 })
             }, mainRef)
+
+            safetyTimer = setTimeout(revealContent, 1800)
         })
 
         return () => {
             cancelAnimationFrame(raf)
+            if (safetyTimer) clearTimeout(safetyTimer)
             ctx?.revert()
         }
     }, [active])
@@ -101,10 +114,14 @@ const Page = () => {
 
     return (
         <div ref={containerRef} className="flex min-h-screen w-full bg-slate-950 text-slate-200">
-            <Sidebar active={active} onChange={handleChange} />
-
-            <main ref={mainRef} className="flex-1 p-6 overflow-y-auto">
-                <Topbar />
+            <Sidebar
+                active={active}
+                onChange={handleChange}
+                mobileOpen={mobileNavOpen}
+                onMobileOpenChange={setMobileNavOpen}
+            />
+            <main ref={mainRef} className="min-w-0 flex-1 overflow-x-hidden overflow-y-auto p-3 sm:p-4 md:p-6">
+                <Topbar onMenuClick={() => setMobileNavOpen(true)} />
                 <ActiveSection />
             </main>
         </div>

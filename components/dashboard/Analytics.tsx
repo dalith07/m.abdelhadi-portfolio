@@ -21,11 +21,11 @@ export default function Analytics() {
             <p id="eyebrow" className="text-xs tracking-wide text-amber-400/80 mb-1">
                 Performance overview
             </p>
-            <div className="flex items-center justify-between mb-6">
-                <h1 id="main-title" className="text-2xl font-semibold text-white">
+            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <h1 id="main-title" className="text-xl font-semibold text-white sm:text-2xl">
                     Analytics Dashboard
                 </h1>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                     <select className="bg-slate-900 border border-slate-800 rounded-md text-xs text-slate-300 px-3 py-1.5 outline-none">
                         <option>Last 30 Days</option>
                     </select>
@@ -36,7 +36,7 @@ export default function Analytics() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-3 mb-4">
+            <div className="mb-4 grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 xl:grid-cols-4">
                 {stats.map((s) => {
                     const Icon = s.icon
                     return (
@@ -58,7 +58,7 @@ export default function Analytics() {
                 })}
             </div>
 
-            <div className="grid grid-cols-[2fr_1fr] gap-4 mb-4">
+            <div className="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
                 <div id="chartcard" className="bg-slate-900 border border-slate-800 rounded-lg p-4">
                     <p className="text-sm font-medium text-slate-200 mb-3">Audience Growth</p>
                     <svg viewBox="0 0 400 140" className="w-full h-36">
@@ -107,7 +107,8 @@ export default function Analytics() {
                     <p className="text-sm font-medium text-slate-200">Top Performing Content</p>
                     <button className="text-xs text-amber-400 hover:underline">View all</button>
                 </div>
-                <table className="w-full text-xs">
+                <div className="overflow-x-auto">
+                <table className="w-full min-w-[640px] text-xs">
                     <thead>
                         <tr className="text-slate-500 border-b border-slate-800">
                             <th className="text-left font-normal py-2">Content</th>
@@ -129,6 +130,7 @@ export default function Analytics() {
                         ))}
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     )

@@ -6,12 +6,12 @@ export default function SettingsSection() {
             <p id="eyebrow" className="text-xs tracking-wide text-amber-400/80 mb-1">
                 Preferences
             </p>
-            <h1 id="main-title" className="text-2xl font-semibold text-white mb-1">
+            <h1 id="main-title" className="mb-6 text-xl font-semibold text-white sm:text-2xl">
                 Settings
             </h1>
-            <p className="text-xs text-slate-500 mb-6">Manage your brand identity, configurations, and administrative preferences.</p>
+            <p className="mb-6 text-xs text-slate-500">Manage your brand identity, configurations, and administrative preferences.</p>
 
-            <div className="grid grid-cols-[2fr_1fr] gap-4">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
                 <div className="flex flex-col gap-4">
                     <div id="chartcard" className="bg-slate-900 border border-slate-800 rounded-lg p-4">
                         <p className="text-sm font-medium text-slate-200 mb-4">Profile Settings</p>
@@ -43,11 +43,11 @@ export default function SettingsSection() {
                     <div id="distcard" className="bg-slate-900 border border-slate-800 rounded-lg p-4">
                         <p className="text-sm font-medium text-slate-200 mb-4">Social Integration</p>
                         {["Instagram", "Twitter / X", "TikTok"].map((platform) => (
-                            <div key={platform} className="flex items-center justify-between mb-3 last:mb-0">
+                            <div key={platform} className="mb-3 flex flex-col gap-2 last:mb-0 sm:flex-row sm:items-center sm:justify-between">
                                 <span className="text-xs text-slate-500">{platform}</span>
                                 <input
                                     placeholder="username"
-                                    className="bg-slate-800 border border-slate-700 rounded-md text-xs text-slate-300 px-3 py-1.5 outline-none w-40"
+                                    className="w-full rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs text-slate-300 outline-none sm:w-40"
                                 />
                             </div>
                         ))}

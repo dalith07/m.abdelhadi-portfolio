@@ -132,31 +132,43 @@ export default function Users() {
     const [stats, setStats] = useState<Stats>({ total: 0, activeThisWeek: 0, newSignups: 0 })
     const [loading, setLoading] = useState(true)
 
+    // useEffect(() => {
+    //     Promise.all([getUsers(), getUserStats()]).then(([u, s]) => {
+    //         setUsers(u)
+    //         setStats(s)
+    //         setLoading(false)
+    //     })
+    // }, [])
+
     useEffect(() => {
-        Promise.all([getUsers(), getUserStats()]).then(([u, s]) => {
-            setUsers(u)
-            setStats(s)
-            setLoading(false)
-        })
+        Promise.all([getUsers(), getUserStats()])
+            .then(([u, s]) => {
+                setUsers(u)
+                setStats(s)
+            })
+            .catch((err) => {
+                console.error("Failed to load users:", err)
+            })
+            .finally(() => setLoading(false))
     }, [])
 
     return (
         <div>
             <p id="eyebrow" className="text-xs tracking-wide text-amber-400/80 mb-1">Community</p>
-            <h1 id="main-title" className="text-2xl font-semibold text-white mb-6">Users</h1>
+            <h1 id="main-title" className="mb-6 text-xl font-semibold text-white sm:text-2xl">Users</h1>
 
-            <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <div className="stat-card bg-slate-900 border border-slate-800 rounded-lg p-4">
                     <p className="text-xs text-slate-500 mb-2">Total users</p>
-                    <p className="text-xl font-semibold text-white" data-target={stats.total} data-decimal="0" data-suffix="">0</p>
+                    <p className="text-xl font-semibold text-white" data-target={stats.total} data-decimal="0" data-suffix="">{stats.total}</p>
                 </div>
                 <div className="stat-card bg-slate-900 border border-slate-800 rounded-lg p-4">
                     <p className="text-xs text-slate-500 mb-2">Active this week</p>
-                    <p className="text-xl font-semibold text-white" data-target={stats.activeThisWeek} data-decimal="0" data-suffix="">0</p>
+                    <p className="text-xl font-semibold text-white" data-target={stats.activeThisWeek} data-decimal="0" data-suffix="">{stats.activeThisWeek}</p>
                 </div>
                 <div className="stat-card bg-slate-900 border border-slate-800 rounded-lg p-4">
                     <p className="text-xs text-slate-500 mb-2">New signups</p>
-                    <p className="text-xl font-semibold text-white" data-target={stats.newSignups} data-decimal="0" data-suffix="">0</p>
+                    <p className="text-xl font-semibold text-white" data-target={stats.newSignups} data-decimal="0" data-suffix="">{stats.newSignups}</p>
                 </div>
             </div>
 
@@ -164,3 +176,81 @@ export default function Users() {
         </div>
     )
 }
+
+
+// "use client"
+
+// import { useMemo } from "react"
+
+// type UserRole = "USER" | "ADMIN" | "VIP_USER"
+// type UserStatus = "ACTIVE" | "INACTIVE" | "SUSPENDED" | "BANNED"
+
+// type User = {
+//     id: string
+//     name: string
+//     handle: string
+//     joined: string
+//     status: UserStatus
+//     role: UserRole
+// }
+
+// function StatCard({
+//     label,
+//     value,
+//     accent,
+//     detail,
+// }: {
+//     label: string
+//     value: number
+//     accent: string
+//     detail: string
+// }) {
+//     return (
+//         <div className="group relative overflow-hidden rounded-lg border border-slate-800 bg-slate-900 p-4 transition-all duration-300 hover:border-slate-700 hover:-translate-y-0.5">
+//             <p className="text-xs text-slate-500 mb-2">{label}</p>
+//             <p className={`text-xl font-semibold ${accent}`}>{value}</p>
+
+//             <div className="grid grid-rows-[0fr] transition-all duration-300 ease-out group-hover:grid-rows-[1fr]">
+//                 <div className="overflow-hidden">
+//                     <p className="mt-3 border-t border-slate-800 pt-2 text-[11px] leading-relaxed text-slate-500">
+//                         {detail}
+//                     </p>
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
+
+// export default function UserStatCards({ users = [] }: { users?: User[] }) {
+//     const { admins, active, blocked } = useMemo(() => {
+//         const list = users ?? []
+//         return {
+//             admins: list.filter((u) => u.role === "ADMIN" || u.role === "VIP_USER").length,
+//             active: list.filter((u) => u.status === "ACTIVE").length,
+//             blocked: list.filter((u) => u.status === "BANNED" || u.status === "SUSPENDED").length,
+//         }
+//     }, [users])
+
+//     return (
+//         <div className="grid grid-cols-3 gap-3 mb-4">
+//             <StatCard
+//                 label="Admins"
+//                 value={admins}
+//                 accent="text-amber-400"
+//                 detail="Includes ADMIN and VIP_USER roles — accounts with elevated permissions."
+//             />
+//             <StatCard
+//                 label="Active users"
+//                 value={active}
+//                 accent="text-teal-400"
+//                 detail="Accounts currently marked ACTIVE, free to use the platform normally."
+//             />
+//             <StatCard
+//                 label="Blocked"
+//                 value={blocked}
+//                 accent="text-red-400"
+//                 detail="Accounts that are SUSPENDED or BANNED and can't sign in."
+//             />
+//         </div>
+//     )
+// }

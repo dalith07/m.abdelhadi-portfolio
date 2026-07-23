@@ -2,15 +2,23 @@
 "use client"
 
 import { ReactNode, useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import Loading from "@/app/loading"
 
 const MIN_LOADING_MS = 900
 const MAX_LOADING_MS = 3500
 
 export default function AppLoader({ children }: { children: ReactNode }) {
+  const pathname = usePathname()
   const [isReady, setIsReady] = useState(false)
 
+  const isDashboard = pathname.startsWith("/dashboard")
+
   useEffect(() => {
+    if (isDashboard) {
+      setIsReady(true)
+      return
+    }
     const startedAt = Date.now()
     let minTimer: ReturnType<typeof setTimeout> | undefined
     let maxTimer: ReturnType<typeof setTimeout> | undefined
@@ -35,7 +43,7 @@ export default function AppLoader({ children }: { children: ReactNode }) {
       if (maxTimer) clearTimeout(maxTimer)
       window.removeEventListener("load", reveal)
     }
-  }, [])
+  }, [isDashboard])
 
   if (!isReady) {
     return <Loading />

@@ -64,13 +64,21 @@ export async function getUsers() {
 }
 
 export async function getUserStats() {
-  const total = await prisma.user.count();
-  const newSignups = await prisma.user.count({
-    where: {
-      createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
-    },
-  });
-  return { total, activeThisWeek: total, newSignups };
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+  const [total, activeThisWeek, newSignups] = await Promise.all([
+    prisma.user.count(),
+    prisma.user.count({
+      where: {
+        OR: [{ lastSeen: { gte: sevenDaysAgo } }, { isOnline: true }],
+      },
+    }),
+    prisma.user.count({
+      where: { createdAt: { gte: sevenDaysAgo } },
+    }),
+  ]);
+
+  return { total, activeThisWeek, newSignups };
 }
 
 export async function getUserProfile(userId: string) {
